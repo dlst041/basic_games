@@ -28,14 +28,33 @@ def game(word):
     game_won = False
     while(game_won != True):
         user_word = get_user_input()
-        redraw(word, user_word)
+        game_won = redraw(word, user_word)
     
 
 def redraw(word, user_word):
     # redraw the terminal view of the word
     # "input field " should have color coding, n letter spaces based on difficulty
     print('word: {}\nuser_word: {}'.format(word, user_word))
-    pass
+    view_str = ""
+    if user_word == word:
+        print('Correct word chosen: {}'.format(word))
+        return True
+    else:
+        word_list = [x for x in word]
+        user_word_list = [x for x in user_word]
+
+        for i in range(0, len(word_list)):
+            if user_word_list[i] == word_list[i]:
+                view_str+= '\x1b[1;32;40m' + user_word_list[i] + '\x1b[0m'
+            elif(user_word[i] in word_list):
+                view_str+= '\x1b[1;33;40m' + user_word_list[i] + '\x1b[0m'
+            else:
+                view_str+= '\x1b[1;31;40m' + user_word_list[i] + '\x1b[0m'
+
+    print(view_str)
+    return False
+
+                
 
 if __name__ == "__main__":
     word = game_start()
