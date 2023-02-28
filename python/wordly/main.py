@@ -1,21 +1,19 @@
 import time
 import random
 def get_user_input():
-    user_word = input(">")
+    user_word = input("User word > ")
     return user_word
 
 
 def game_start():
     file_selected=False
     while file_selected != True:
-        diff = input("Select Difficulty (easy, medium, hard):").lower()
-        print(diff)
+        diff = input("Select Difficulty (easy, medium, hard): ").lower()
         if diff in ['easy', 'medium', 'hard']:
             file_ = './words/' + diff + '_words.txt'
             with open(file_) as fin:
                 words = [word.strip() for word in fin.readlines()]
                 word = words[random.randint(0, len(words))]
-                print(word)
                 return word
 
     # get user input for difficulty level
@@ -23,18 +21,22 @@ def game_start():
     # select random word
     
 
-def game(word):
+def game():
     # loop until exit condition (user exits)
     game_won = False
-    while(game_won != True):
-        user_word = get_user_input()
-        game_won = redraw(word, user_word)
+    word = game_start()
+    while(1):
+        if game_won is True:
+            word = game_start()
+            game_won = False
+        else:
+            user_word = get_user_input()
+            game_won = redraw(word, user_word)
     
 
 def redraw(word, user_word):
     # redraw the terminal view of the word
     # "input field " should have color coding, n letter spaces based on difficulty
-    print('word: {}\nuser_word: {}'.format(word, user_word))
     view_str = ""
     if user_word == word:
         print('Correct word chosen: {}'.format(word))
@@ -57,5 +59,4 @@ def redraw(word, user_word):
                 
 
 if __name__ == "__main__":
-    word = game_start()
-    game(word)
+    game()
