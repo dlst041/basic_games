@@ -31,7 +31,7 @@ if args.count:
 #print("diff: {}\ncount: {}".format(difficulty, word_count))
 difficulty_val = difficulties[difficulty]
 
-nltk.download('english-words')
+#nltk.download() # might need to be uncommented for first run?
 from nltk.corpus import words
 wordslist = words.words()
 
