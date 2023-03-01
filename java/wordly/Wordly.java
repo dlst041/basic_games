@@ -1,5 +1,8 @@
 import java.util.ArrayList;
 import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.concurrent.ThreadLocalRandom;
 
 public class Wordly {
     public static void main(String[] args){
@@ -65,7 +68,27 @@ public class Wordly {
     }
 
     private static String startGame(){
-        
-        return "temp";
+
+        HashMap<String, String[]> words = new HashMap<String, String[]>();
+        String[] easyWords = {"dogs", "cats", "hair", "know", "cart", "gave"};
+        String[] mediumWords = {"grape", "known", "visor", "flown", "treat", "hands"};
+        String[] hardWords = {"grades", "handle", "mentor", "pulses", "soften", "dongle"};
+
+        words.put("easy", easyWords);
+        words.put("medium", mediumWords);
+        words.put("hard", hardWords);
+
+        while(true){
+            System.out.print("Select difficulty (easy, medium, hard)> ");
+            String difficulty = System.console().readLine().toLowerCase();
+            if(words.containsKey(difficulty)){
+                int randVal = ThreadLocalRandom.current().nextInt(0, words.get(difficulty).length);
+                String word = words.get(difficulty)[randVal];
+                return word;
+            }else{
+                System.out.println("Value: " + difficulty + " is not a difficulty");
+            }
+
+        }        
     }
 }
