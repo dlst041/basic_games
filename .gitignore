@@ -1,2 +1,8 @@
+# python related components
 python/env
 python/wordly/words/*_words.txt
+
+# java related components
+*.class
+*.jar
+*.war
